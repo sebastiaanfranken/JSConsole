@@ -12,11 +12,29 @@
 			console.log("This is a demo of JSConsole. The <em>coolest</em> Javascript development/debugging console ever.");
 			console.log("But hey, don't take my word for it. Check out the source and see for yourself.");
 			console.write();
+
+			var consoles = new JSConsole({
+				element: '.console'
+			});
+
+			consoles.log('Double the fun');
+			consoles.write();
 		}
 		</script>
+		<style type="text/css">
+		.console, #messages {
+			outline: 1px solid #000;
+			padding: 20px;
+			font-family: arial, verdana, sans-serif;
+			margin-bottom: 40px;
+		}
+		</style>
 	</head>
 	
 	<body>
 		<div id="messages"></div>
+
+		<div class="console"></div>
+		<div class="console"></div>
 	</body>
 </html>

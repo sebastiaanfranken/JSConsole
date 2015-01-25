@@ -10,7 +10,7 @@
 			
 		self.messages = [];
 		self.options = self.utils.merge(defaults, options || {});
-		self.element = d.querySelector(self.options.element);
+		self.element = self.utils.querySelector(self.options.element);
 	}
 	
 	JSConsole.prototype = {
@@ -29,6 +29,14 @@
 				}
 				
 				return dest;
+			},
+
+			querySelector: function(element) {
+				switch(element.charAt(0)) {
+					case '.' : return d.querySelectorAll(element); break;
+					case '#' : return d.querySelector(element);    break;
+					default  : throw("Not a valid DOM selector");  break;
+				}
 			}
 		},
 		
@@ -49,8 +57,17 @@
 			self.messages.forEach(function(msg) {
 				buffer += self.options.messageWrapper.replace(':message', msg);
 			});
-			
-			self.element.innerHTML = self.options.consoleWrapper.replace(':messages', buffer);
+
+			if(typeof self.element === 'object' && self.element.length > 1) {
+				var elements = Array.prototype.slice.call(self.element);
+
+				elements.forEach(function(el) {
+					el.innerHTML = self.options.consoleWrapper.replace(':messages', buffer);
+				});
+			}
+			else {
+				self.element.innerHTML = self.options.consoleWrapper.replace(':messages', buffer);
+			}
 			
 			return self;
 		}
