@@ -42,33 +42,33 @@
 	 * Polyfill for querySelector / querySelectorAll for < IE8, from GitHub
 	 * Source URL: https://github.com/inexorabletash/polyfill/blob/master/polyfill.js#L638-L668
 	 */
-	if(!document.querySelectorAll) {
-		document.querySelectorAll = function(selectors) {
-			var style = document.createElement('style'),
+	if(!d.querySelectorAll) {
+		d.querySelectorAll = function(selectors) {
+			var style = d.createElement('style'),
 				elements = [],
 				element;
 
-			document.documentElement.firstChild.appendChild(style);
-			document._qsa = [];
+			d.documentElement.firstChild.appendChild(style);
+			d._qsa = [];
 
 			style.styleSheet.cssText = selectors + '{x-qsa: expression(document._qsa && document._qsa.push(this))}';
 			window.scrollBy(0, 0);
 			style.parentNode.removeChild(style);
 
-			while(document._qsa.length) {
-				element = document._qsa.shift();
+			while(d._qsa.length) {
+				element = d._qsa.shift();
 				element.style.remoteAttribute('x-qsa');
 				elements.push(element);
 			}
 
-			document._qsa = null;
+			d._qsa = null;
 			return elements;
 		}
 	}
 
-	if(!document.querySelector) {
-		document.querySelector = function(selectors) {
-			var elements = document.querySelectorAll(selectors);
+	if(!d.querySelector) {
+		d.querySelector = function(selectors) {
+			var elements = d.querySelectorAll(selectors);
 			return (elements.length) ? elements[0] : null;
 		}
 	}
