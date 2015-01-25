@@ -51,7 +51,7 @@
 			d.documentElement.firstChild.appendChild(style);
 			d._qsa = [];
 
-			style.styleSheet.cssText = selectors + '{x-qsa: expression(document._qsa && document._qsa.push(this))}';
+			style.styleSheet.cssText = selectors + '{x-qsa: expression(d._qsa && d._qsa.push(this))}';
 			window.scrollBy(0, 0);
 			style.parentNode.removeChild(style);
 
