@@ -1,15 +1,16 @@
 (function(w, d) {
 	
-	function JSConsole(element, options) {
+	function JSConsole(options) {
 		var self = this,
 			defaults = {
+				element: '#messages',
 				consoleWrapper: '<ul>:messages</ul>',
 				messageWrapper: '<li>:message</li>'
 			};
 			
-		self.element = (typeof element === 'string' && element.length > 0) ? d.querySelector(element) : d.querySelector('#messages');
 		self.messages = [];
 		self.options = self.utils.merge(defaults, options || {});
+		self.element = d.querySelector(self.options.element);
 	}
 	
 	JSConsole.prototype = {
@@ -45,7 +46,7 @@
 			var self = this,
 				buffer = '';
 				
-			self.messages.forEaech(function(msg) {
+			self.messages.forEach(function(msg) {
 				buffer += self.options.messageWrapper.replace(':message', msg);
 			});
 			
