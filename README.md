@@ -25,6 +25,6 @@ You can pass a few options to the JSConsole constructor (as an `object`). These 
 
 name|default value|description
 ----|-------------|-----------
-element|`#messages`|The default DOM node to write the message buffer to, should be a valid DOM node that can be queried with `querySelector`
+element|`#messages`|The default DOM node to write the message buffer to, should be a valid DOM node that can be queried with `querySelector` / `querySelectorAll`
 consoleWrapper|`<ul>:messages</ul>`|Any HTML you would like to wrap all messages in. Be carefull to keep the `:messages`, since that gets replaced later on with the messages
 messageWrapper|`<li>:message</li>`|Any HTML you would like to wrap the individual messages in. Be careful to keep the `:message`, since that gets replaced with the actual message
