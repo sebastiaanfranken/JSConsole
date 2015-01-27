@@ -139,6 +139,23 @@
 					});
 				break;
 
+				case 2:
+					var self = this,
+						raw = args[0],
+						patterns = args[1],
+						buffer = '';
+
+					for(var key in patterns) {
+						if(patterns.hasOwnProperty(key)) {
+							w.console.log(key, patterns[key]);
+
+							buffer += raw.replace('[' + key + ']', patterns[key]);
+						}
+					}
+
+					self.log(buffer);
+				break;
+
 				/**
 				 * Room for expansion later on, like the Chrome console has multiple arguments which makes it behave
 				 * a bit like `sprintf`.
