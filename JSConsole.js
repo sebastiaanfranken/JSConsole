@@ -95,7 +95,7 @@
 		version: {
 			major: 0,
 			minor: 3,
-			revision: 1,
+			revision: 5,
 
 			toString: function() {
 				var self = this;
