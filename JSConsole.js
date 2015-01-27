@@ -78,7 +78,8 @@
 			defaults = {
 				element: '#messages',
 				consoleWrapper: '<ul>:messages</ul>',
-				messageWrapper: '<li>:message</li>'
+				messageWrapper: '<li>:message</li>',
+				writeToBrowserConsole: false
 			};
 			
 		self.messages = [];
@@ -89,7 +90,7 @@
 	JSConsole.prototype = {
 		constructor: JSConsole,
 
-		NativeConsole: w.console,
+		nativeConsole: typeof w.console === 'object' ? w.console : false,
 
 		version: {
 			major: 0,
@@ -168,6 +169,10 @@
 		write: function() {
 			var self = this,
 				buffer = '';
+
+			if(self.options.writeToBrowserConsole === true && self.nativeConsole) {
+				self.nativeConsole.group('JSConsole');
+			}
 				
 			/*
 			 * forEach over all messages and build the buffer with all messages, wrapping each and every one of them
@@ -175,7 +180,19 @@
 			 */
 			self.messages.forEach(function(msg) {
 				buffer += self.options.messageWrapper.replace(':message', msg);
+
+				/*
+				 * If the option 'writeToBrowerConsole' is true also write the message to the native browser's console.
+				 * This is written into a group, see the if statement above and below
+				 */
+				if(self.options.writeToBrowserConsole === true && self.nativeConsole) {
+					self.nativeConsole.log(msg);
+				}
 			});
+
+			if(self.options.writeToBrowserConsole === true && self.nativeConsole) {
+				self.nativeConsole.groupEnd();
+			}
 
 			if(typeof self.element === 'object' && self.element.length > 1) {
 
