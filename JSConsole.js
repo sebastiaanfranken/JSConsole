@@ -142,18 +142,15 @@
 				case 2:
 					var self = this,
 						raw = args[0],
-						patterns = args[1],
-						buffer = '';
+						patterns = args[1];
 
 					for(var key in patterns) {
 						if(patterns.hasOwnProperty(key)) {
-							w.console.log(key, patterns[key]);
-
-							buffer += raw.replace('[' + key + ']', patterns[key]);
+							raw = raw.replace('[' + key + ']', patterns[key]);
 						}
 					}
 
-					self.log(buffer);
+					self.log(raw);
 				break;
 
 				/**
