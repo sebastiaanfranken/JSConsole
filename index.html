@@ -9,16 +9,19 @@
 		window.onload = function() {
 			var console = new JSConsole();
 			
-			console.log("This is a demo of JSConsole. The <em>coolest</em> Javascript development/debugging console ever.");
+			console.log("This is a demo of JSConsole " + console.version.toString() + ". The <em>coolest</em> Javascript development/debugging console ever.");
 			console.log("But hey, don't take my word for it. Check out the source and see for yourself.");
+
+			console.log(
+				"Check the [sourcecode]",
+				{
+					'[sourcecode]': 'http://github.com/sebastiaanfranken/JSConsole'
+				}
+			);
+
 			console.write();
 
-			var consoles = new JSConsole({
-				element: '.console'
-			});
-
-			consoles.log('Double the fun');
-			consoles.write();
+			console.NativeConsole.log(console);
 		}
 		</script>
 		<style type="text/css">
@@ -33,8 +36,5 @@
 	
 	<body>
 		<div id="messages"></div>
-
-		<div class="console"></div>
-		<div class="console"></div>
 	</body>
 </html>

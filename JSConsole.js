@@ -88,6 +88,19 @@
 	
 	JSConsole.prototype = {
 		constructor: JSConsole,
+
+		NativeConsole: w.console,
+
+		version: {
+			major: 0,
+			minor: 3,
+			revision: 1,
+
+			toString: function() {
+				var self = this;
+				return (self.major + '.' + self.minor + '.' + self.revision);
+			}
+		},
 		
 		utils: {
 		
@@ -113,13 +126,28 @@
 			}
 		},
 		
-		log: function(message) {
-			var self = this;
-			
-			if(typeof message === 'string' && message.length > 0) {
-				self.messages.push(message);
+		log: function() {
+			var self = this,
+				args = Array.prototype.slice.call(arguments);
+
+			switch(args.length) {
+				case 1: default:
+					args.forEach(function(argument) {
+						if(typeof argument === 'string' && argument.length > 0) {
+							self.messages.push(argument);
+						}
+					});
+				break;
+
+				/**
+				 * Room for expansion later on, like the Chrome console has multiple arguments which makes it behave
+				 * a bit like `sprintf`.
+				 *
+				 * The challenge is to do the same here
+				 * @todo Make this behave like `sprintf` with more than one argument
+				 */
 			}
-			
+
 			return self;
 		},
 		
@@ -152,7 +180,7 @@
 			}
 			
 			return self;
-		}
+		},
 	};
 	
 	w.JSConsole = JSConsole;
